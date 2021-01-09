@@ -1,0 +1,10 @@
+nacos:
+  discovery:
+    server-addr: 182.92.202.68:8015
+
+server:
+  port: 8001
+
+spring:
+  application:
+    name: nacos-springboot-discovery
