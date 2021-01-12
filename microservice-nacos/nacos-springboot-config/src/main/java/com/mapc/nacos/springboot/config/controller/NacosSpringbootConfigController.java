@@ -33,6 +33,9 @@ public class NacosSpringbootConfigController {
     @Value("${nacos.config.server-addr}")
     private String nacosUrl;
 
+    @Value("${nacos.config.namespace}")
+    private String namespace;
+
     @NacosInjected
     private ConfigService configService;
 
@@ -56,7 +59,21 @@ public class NacosSpringbootConfigController {
             String group = "DEFAULT_GROUP";
             Properties properties = new Properties();
             properties.put("serverAddr", nacosUrl);
+            properties.put("namespace", namespace);
             ConfigService configService = NacosFactory.createConfigService(properties);
+            boolean isPublishOk = configService.publishConfig(dataId, group, "useLocalCache="+useLocalCache);
+            System.out.println(isPublishOk);
+        } catch (NacosException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @GetMapping("createConfigByInjected")
+    public void createConfigByInjected(Boolean useLocalCache) {
+        try {
+            // 初始化配置服务，控制台通过示例代码自动获取下面参数
+            String dataId = "example.properties";
+            String group = "DEFAULT_GROUP";
             boolean isPublishOk = configService.publishConfig(dataId, group, "useLocalCache="+useLocalCache);
             System.out.println(isPublishOk);
         } catch (NacosException e) {
