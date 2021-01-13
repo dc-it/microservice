@@ -68,7 +68,7 @@ public class NacosSpringbootConfigController {
         }
     }
 
-    @GetMapping("createConfigByInjected")
+    @GetMapping("createConfigBySdkInjected")
     public void createConfigByInjected(Boolean useLocalCache) {
         try {
             // 初始化配置服务，控制台通过示例代码自动获取下面参数
