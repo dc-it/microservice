@@ -8,7 +8,7 @@ server:
 
 spring:
   application:
-    name: nacos-springboot-config
+    name: nacos-springboot-config-mysql
 
   jpa:
     show-sql: true
