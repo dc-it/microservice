@@ -1,7 +1,7 @@
 nacos:
   discovery:
     server-addr: 182.92.202.68:8015
-    namespace: 60ce739a-2eea-4a7c-8b9b-b1eb66e9fa0b
+    namespace: bf100dae-330c-4fce-a783-d63aecac842b
 
 server:
   port: 8003
