@@ -11,6 +11,8 @@
 
     <modules>
         <module>microservice-nacos</module>
+        <module>microservice-seata</module>
+        <module>microservice-sentinel</module>
     </modules>
 
     <properties>
