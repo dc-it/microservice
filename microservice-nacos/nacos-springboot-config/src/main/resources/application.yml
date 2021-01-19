@@ -1,11 +1,13 @@
-nacos:
-  config:
-    server-addr: 182.92.202.68:8015
-    namespace: bf100dae-330c-4fce-a783-d63aecac842b
+spring:
+  application:
+    name: nacos-springboot-config
 
 server:
   port: 8000
 
-spring:
-  application:
-    name: nacos-springboot-config
+nacos:
+  config:
+    server-addr: 182.92.202.68:8015
+    namespace: bf100dae-330c-4fce-a783-d63aecac842b
+    group: ${spring.application.name}
+    data-id: example.properties

@@ -36,6 +36,9 @@ public class NacosSpringbootConfigController {
     @Value("${nacos.config.namespace}")
     private String namespace;
 
+    @Value("${spring.application.name}")
+    private String groupId;
+
     @NacosInjected
     private ConfigService configService;
 
@@ -46,7 +49,7 @@ public class NacosSpringbootConfigController {
 
     @GetMapping("createConfigByApi")
     public HttpStatus createConfigByApi(Boolean useLocalCache) {
-        RequestEntity requestEntity = new RequestEntity(null, HttpMethod.POST, URI.create("http://"+nacosUrl + "/nacos/v1/cs/configs?dataId=example.properties&group=DEFAULT_GROUP&content=useLocalCache="+useLocalCache.toString()));
+        RequestEntity requestEntity = new RequestEntity(null, HttpMethod.POST, URI.create("http://"+nacosUrl + "/nacos/v1/cs/configs?dataId=example.properties&group=groupId&content=useLocalCache="+useLocalCache.toString()));
         ResponseEntity<Object> responseEntity = new RestTemplate().exchange(requestEntity, Object.class);
         return responseEntity.getStatusCode();
     }
@@ -60,6 +63,7 @@ public class NacosSpringbootConfigController {
             Properties properties = new Properties();
             properties.put("serverAddr", nacosUrl);
             properties.put("namespace", namespace);
+            properties.put("groupId", groupId);
             ConfigService configService = NacosFactory.createConfigService(properties);
             boolean isPublishOk = configService.publishConfig(dataId, group, "useLocalCache="+useLocalCache);
             System.out.println(isPublishOk);
@@ -73,7 +77,7 @@ public class NacosSpringbootConfigController {
         try {
             // 初始化配置服务，控制台通过示例代码自动获取下面参数
             String dataId = "example.properties";
-            String group = "DEFAULT_GROUP";
+            String group = groupId;
             boolean isPublishOk = configService.publishConfig(dataId, group, "useLocalCache="+useLocalCache);
             System.out.println(isPublishOk);
         } catch (NacosException e) {
